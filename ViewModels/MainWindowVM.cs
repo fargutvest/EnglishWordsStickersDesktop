@@ -1,6 +1,8 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using System.Windows;
 using EnglishWordsPrintUtility.Annotations;
 using EnglishWordsPrintUtility.Helpers;
 using Microsoft.Win32;
@@ -43,7 +45,17 @@ namespace EnglishWordsPrintUtility.ViewModels
         public void CreateExcelFile()
         {
             var dic = ViberMessagesHelper.ExctractEngRusDictionaryFromCsvFile(_viberCsvFilePath);
-            StickersTapeHelper.SaveDictionaryToTapeFile(dic, _exelTemplateFilePath, _outputPath);
+            try
+            {
+                StickersTapeHelper.SaveDictionaryToTapeFile(dic, _exelTemplateFilePath, _outputPath);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+                MessageBox.Show("To work with trial flexcel need to open source code in VS  and run program under debug.");
+                return;
+            }
+            
             Process.Start(_outputPath);
         }
 
