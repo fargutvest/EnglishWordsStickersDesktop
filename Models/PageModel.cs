@@ -4,11 +4,11 @@ namespace EnglishWordsPrintUtility.Models
 {
     internal sealed class PageModel
     {
-        public List<StickerModel> Stickers { get; }
+        public List<RowModel> Rows { get; }
 
-        public PageModel( List<StickerModel> stickers)
+        public PageModel(List<RowModel> rows)
         {
-            Stickers = stickers;
+            Rows = rows;
         }
     }
 }

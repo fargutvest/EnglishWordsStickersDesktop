@@ -2,8 +2,14 @@
 {
     public class StickerModel
     {
-        public string English { get; set; }
+        public string English { get; }
 
-        public string Russian { get; set; }
+        public string Russian { get; }
+
+        public StickerModel(string english, string russian)
+        {
+            English = english;
+            Russian = russian;
+        }
     }
 }

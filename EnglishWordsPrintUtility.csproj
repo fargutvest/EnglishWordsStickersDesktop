@@ -60,6 +60,7 @@
     </ApplicationDefinition>
     <Compile Include="Helpers\StickersTapeHelper.cs" />
     <Compile Include="Models\PageModel.cs" />
+    <Compile Include="Models\RowModel.cs" />
     <Compile Include="Models\StickerModel.cs" />
     <Compile Include="Helpers\ViberMessagesHelper.cs" />
     <Compile Include="Properties\Annotations.cs" />

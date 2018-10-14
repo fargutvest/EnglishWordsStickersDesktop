@@ -15,9 +15,23 @@ namespace EnglishWordsPrintUtility.Helpers
             var template = File.ReadAllBytes(templateFilePath);
             var report = new FlexCelReport();
 
+            var stickers = dic.Select(x => new StickerModel(x.Key, x.Value)).ToList();
+            var rows = new List<RowModel>();
+
+            StickerModel predicate(int i, int column)
+            {
+                return stickers.Count - 1 > i + column ? stickers[i + column] : null;
+            }
+
+            for (var i = 0; i < stickers.Count; i += 4)
+            {
+                rows.Add(new RowModel(stickers[i], predicate(i, 1), predicate(i, 2), predicate(i, 3)));
+            }
+
+
             report.AddTable("Pages", new List<PageModel>
             {
-                new PageModel(dic.Select(x => new StickerModel { English = x.Key, Russian = x.Value }).ToList())
+                new PageModel(rows)
             });
 
             using (var templateStream = new MemoryStream(template))
