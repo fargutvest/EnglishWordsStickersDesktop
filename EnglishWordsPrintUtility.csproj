@@ -58,9 +58,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ExcelDocument.cs" />
+    <Compile Include="Helpers\StickersTapeHelper.cs" />
     <Compile Include="Models\PageModel.cs" />
     <Compile Include="Models\StickerModel.cs" />
+    <Compile Include="Helpers\ViberMessagesHelper.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="ViewModels\MainWindowVM.cs" />
     <Page Include="MainWindow.xaml">

@@ -1,35 +1,24 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Runtime.Serialization.Formatters;
-using EnglishWordsToPrint.Models;
+using EnglishWordsPrintUtility.Models;
 using FlexCel.Report;
 using FlexCel.XlsAdapter;
 
 
-namespace EnglishWordsToPrint
+namespace EnglishWordsPrintUtility.Helpers
 {
-    public class ExcelDocument
+    public static class StickersTapeHelper
     {
-        private string _templateFilePath;
-        private Dictionary<string, string> _dic;
-
-
-        public ExcelDocument(Dictionary<string, string> dic, string templateFilePath)
+        public static void SaveDictionaryToTapeFile(Dictionary<string, string> dic, string templateFilePath, string path)
         {
-            _dic = dic;
-            _templateFilePath = templateFilePath;
-        }
-
-        public void Save(string path)
-        {
-            var template = File.ReadAllBytes(_templateFilePath);
+            var template = File.ReadAllBytes(templateFilePath);
             var report = new FlexCelReport();
 
-            report.AddTable("Pages", new List<PageModel> { new PageModel
+            report.AddTable("Pages", new List<PageModel>
             {
-                Stickers = _dic.Select(x => new StickerModel { English = x.Key, Russian = x.Value }).ToList()
-            } });
+                new PageModel(dic.Select(x => new StickerModel { English = x.Key, Russian = x.Value }).ToList())
+            });
 
             using (var templateStream = new MemoryStream(template))
             {
@@ -41,7 +30,7 @@ namespace EnglishWordsToPrint
                     {
                         var excel = new XlsFile();
                         excel.Open(excelStream);
-                        
+
                         if (File.Exists(path))
                         {
                             File.Delete(path);

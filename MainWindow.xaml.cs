@@ -1,7 +1,7 @@
 ﻿using System.Windows;
-using EnglishWordsToPrint.ViewModels;
+using EnglishWordsPrintUtility.ViewModels;
 
-namespace EnglishWordsToPrint
+namespace EnglishWordsPrintUtility
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -15,15 +15,14 @@ namespace EnglishWordsToPrint
             InitializeComponent();
         }
 
-        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        private void OpenButton_OnClick(object sender, RoutedEventArgs e)
         {
             _vm.OpenViberCsvFile();
         }
 
-        private void ButtonBase_OnClick1(object sender, RoutedEventArgs e)
+        private void CreateButton_OnClick(object sender, RoutedEventArgs e)
         {
             _vm.CreateExcelFile();
-
         }
 
     }

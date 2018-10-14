@@ -1,4 +1,4 @@
-﻿namespace EnglishWordsToPrint.Models
+﻿namespace EnglishWordsPrintUtility.Models
 {
     public class StickerModel
     {

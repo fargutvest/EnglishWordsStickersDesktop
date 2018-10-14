@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 
-namespace EnglishWordsToPrint.Models
+namespace EnglishWordsPrintUtility.Models
 {
     internal sealed class PageModel
     {
-        public List<StickerModel> Stickers { get; set; }
+        public List<StickerModel> Stickers { get; }
 
-        public PageModel()
+        public PageModel( List<StickerModel> stickers)
         {
-            Stickers = new List<StickerModel>();
+            Stickers = stickers;
         }
     }
 }

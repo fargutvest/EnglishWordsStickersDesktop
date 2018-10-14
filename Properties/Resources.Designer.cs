@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace EnglishWordsToPrint.Properties
+namespace EnglishWordsPrintUtility.Properties
 {
 
 
