@@ -27,14 +27,14 @@ namespace EnglishWordsPrintUtility.Helpers
                 }
             }
 
+            const string rusPattern = @"[а-я]";
+            var rusRegex = new Regex(rusPattern);
             var words = new Dictionary<string, string>();
             list.ForEach(x =>
             {
-                var arr = x.Split(' ');
-                if (arr.Length > 1)
-                {
-                    words[arr[0]] = arr[1];
-                }
+                var rusIndex = rusRegex.Match(x).Index;
+                var eng = x.Substring(0, x.IndexOf(' '));
+                words[eng] = x.Substring(rusIndex);
             });
 
             return words;
