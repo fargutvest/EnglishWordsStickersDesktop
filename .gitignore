@@ -243,3 +243,4 @@ native/output/
 *.dll
 *.pdb
 
+!/Lib/**
