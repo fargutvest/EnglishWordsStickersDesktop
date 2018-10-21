@@ -6,17 +6,17 @@ using FlexCel.Report;
 using FlexCel.XlsAdapter;
 
 
-namespace EnglishWordsPrintUtility.Helpers
+namespace EnglishWordsPrintUtility
 {
-    public static class StickersTapeHelper
+    public static class StickersDocumentGenerator
     {
-        public static void SaveDictionaryToTapeFile(Dictionary<string, string> dic, string templateFilePath, string path)
+        public static void Generate(Dictionary<string, string> dic, string templateFilePath, string path)
         {
             var template = File.ReadAllBytes(templateFilePath);
             var report = new FlexCelReport();
 
             var stickers = dic.Select(x => new StickerModel(x.Key, x.Value)).ToList();
-            var rows = new List<RowModel>();
+            var rows = new List<StickersRowModel>();
 
             StickerModel predicate(int i, int column)
             {
@@ -25,13 +25,13 @@ namespace EnglishWordsPrintUtility.Helpers
 
             for (var i = 0; i < stickers.Count; i += 4)
             {
-                rows.Add(new RowModel(stickers[i], predicate(i, 1), predicate(i, 2), predicate(i, 3)));
+                rows.Add(new StickersRowModel(stickers[i], predicate(i, 1), predicate(i, 2), predicate(i, 3)));
             }
 
 
-            report.AddTable("Pages", new List<PageModel>
+            report.AddTable("Pages", new List<StickersPageModel>
             {
-                new PageModel(rows)
+                new StickersPageModel(rows)
             });
 
             using (var templateStream = new MemoryStream(template))

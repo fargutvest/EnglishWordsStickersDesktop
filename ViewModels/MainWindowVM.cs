@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using EnglishWordsPrintUtility.Annotations;
-using EnglishWordsPrintUtility.Helpers;
 using Microsoft.Win32;
 
 namespace EnglishWordsPrintUtility.ViewModels
@@ -15,14 +16,13 @@ namespace EnglishWordsPrintUtility.ViewModels
 
         private const string _exelTemplateFilePath = "Templates/template.xlsx";
 
-        private string _viberCsvFilePath;
-
+        #region Properties
 
         private bool _isFileChoosed;
 
         public bool IsFileChoosed
         {
-            get { return _isFileChoosed; }
+            get => _isFileChoosed;
             set
             {
                 _isFileChoosed = value;
@@ -30,6 +30,21 @@ namespace EnglishWordsPrintUtility.ViewModels
             }
         }
 
+        public DateTime dateTimeValue = DateTime.Now;
+
+        public DateTime DateTimeValue
+        {
+            get { return dateTimeValue; }
+            set
+            {
+                dateTimeValue = value;
+                OnPropertyChanged(nameof(DateTimeValue));
+            }
+        }
+
+        #endregion
+
+        private WordsRepository repository;
 
         public void OpenViberCsvFile()
         {
@@ -37,17 +52,40 @@ namespace EnglishWordsPrintUtility.ViewModels
             ofd.Filter = "csv|*.csv";
             if (ofd.ShowDialog() == true)
             {
-                _viberCsvFilePath = ofd.FileName;
                 IsFileChoosed = true;
+                repository = WordsRepository.LoadFromFile(ofd.FileName);
+                GetEarlierDateTime();
             }
+        }
+
+        private void GetEarlierDateTime()
+        {
+            DateTimeValue = repository.NotesEngRus.OrderBy(x => x.DateTime).First().DateTime;
         }
 
         public void CreateExcelFile()
         {
-            var dic = ViberMessagesHelper.ExctractEngRusDictionaryFromCsvFile(_viberCsvFilePath);
+            var dic = new Dictionary<string, string>();
+
+            repository.NotesEngRus.ForEach(note =>
+            {
+                if (note.DateTime < DateTimeValue)
+                {
+                    return;
+                }
+                if (dic.ContainsKey(note.English))
+                {
+                    dic[note.English] += $"/{note.English}";
+                }
+                else
+                {
+                    dic[note.English] = note.English;
+                }
+            });
+
             try
             {
-                StickersTapeHelper.SaveDictionaryToTapeFile(dic, _exelTemplateFilePath, _outputPath);
+                StickersDocumentGenerator.Generate(dic, _exelTemplateFilePath, _outputPath);
             }
             catch (Exception e)
             {
@@ -55,11 +93,11 @@ namespace EnglishWordsPrintUtility.ViewModels
                 MessageBox.Show("To work with trial flexcel need to open source code in VS  and run program under debug.");
                 return;
             }
-            
+
             Process.Start(_outputPath);
         }
 
-       
+
 
         #region INotifyPropertyChanged
 
