@@ -75,11 +75,11 @@ namespace EnglishWordsPrintUtility.ViewModels
                 }
                 if (dic.ContainsKey(note.English))
                 {
-                    dic[note.English] += $"/{note.English}";
+                    dic[note.English] += $"/{note.Russian}";
                 }
                 else
                 {
-                    dic[note.English] = note.English;
+                    dic[note.English] = note.Russian;
                 }
             });
 
