@@ -114,4 +114,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="NotFoundSourceFile" xml:space="preserve">
+      <value>Not found source file with specified path.</value>
+  </data>
+  <data name="WrongArguments" xml:space="preserve">
+      <value>Wrong arguments</value>
+  </data>
+  <data name="WorkWithTrial" xml:space="preserve">
+      <value>To work with trial flexcel need to open source code in VS  and run program under debug.</value>
+  </data>
+  <data name="OutputDirectoryDoesntExist" xml:space="preserve">
+      <value>Specified output directory doesn`t exist.</value>
+  </data>
 </root>

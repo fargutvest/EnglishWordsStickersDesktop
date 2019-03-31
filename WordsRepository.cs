@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 
-
 namespace EnglishWordsPrintUtility
 {
     public class WordsRepository

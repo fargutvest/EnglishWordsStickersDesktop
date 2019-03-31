@@ -59,5 +59,41 @@ namespace EnglishWordsPrintUtility.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not found source file with specified path..
+        /// </summary>
+        internal static string NotFoundSourceFile {
+            get {
+                return ResourceManager.GetString("NotFoundSourceFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Specified output directory is not exist..
+        /// </summary>
+        internal static string OutputDirectoryDoesntExist {
+            get {
+                return ResourceManager.GetString("OutputDirectoryDoesntExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To work with trial flexcel need to open source code in VS  and run program under debug..
+        /// </summary>
+        internal static string WorkWithTrial {
+            get {
+                return ResourceManager.GetString("WorkWithTrial", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wrong arguments.
+        /// </summary>
+        internal static string WrongArguments {
+            get {
+                return ResourceManager.GetString("WrongArguments", resourceCulture);
+            }
+        }
     }
 }
