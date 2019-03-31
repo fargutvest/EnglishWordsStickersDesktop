@@ -31,7 +31,15 @@ namespace CSharpToUmlConverter
                 return;
             }
 
-            new UnitOfWork(pathSourceFile, outputPath).Start();
+            try
+            {
+                new UnitOfWork(pathSourceFile, outputPath).Start();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+
         }
     }
 }

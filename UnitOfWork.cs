@@ -12,12 +12,17 @@ namespace EnglishWordsPrintUtility
         private const string exelTemplateFilePath = "Templates/template.xlsx";
 
         private WordsRepository repository;
-        
+
 
         public UnitOfWork(string pathSourceFile, string outputPath)
         {
             this.outputPath = outputPath;
-            repository = WordsRepository.LoadFromFile(pathSourceFile);
+
+            if (pathSourceFile.EndsWith(".csv"))
+                repository = WordsRepository.LoadFromCsvFile(pathSourceFile);
+            if (pathSourceFile.EndsWith(".gsheet"))
+                repository = WordsRepository.LoadFromGSheetFile(pathSourceFile);
+
             DateTimeValue = repository.NotesEngRus.OrderBy(x => x.DateTime).First().DateTime;
         }
 
@@ -27,7 +32,7 @@ namespace EnglishWordsPrintUtility
         {
             CreateExcelFile();
         }
-        
+
         private void CreateExcelFile()
         {
             var dic = new Dictionary<string, string>();

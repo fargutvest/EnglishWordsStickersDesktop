@@ -11,9 +11,9 @@ namespace EnglishWordsPrintUtility.Models
         private static readonly string dateTimeFormat = "dd/MM/yyyy hh:mm:ss tt";
         private const string engRusPattern = @"^[a-z]+\s[а-я]+";
 
-        public DateTime DateTime { get; private set; }
-        public string English { get; private set; }
-        public string Russian { get; private set; }
+        public DateTime DateTime { get; set; }
+        public string English { get; set; }
+        public string Russian { get; set; }
 
 
         public static bool TryParse(string text, out EngRusNoteModel model)
