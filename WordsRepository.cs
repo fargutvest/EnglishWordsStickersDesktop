@@ -52,8 +52,7 @@ namespace EnglishWordsPrintUtility
             }
 
             UserCredential credential;
-            var credentialdPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
-                @"Downloads\credentials.json");
+            var credentialdPath = "credentials.json";
             using (var stream = new FileStream(credentialdPath, FileMode.Open, FileAccess.Read))
             {
                 var credPath = "token.json";

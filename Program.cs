@@ -11,7 +11,7 @@ namespace CSharpToUmlConverter
         {
             if (args == null || args.Length < 2)
             {
-                Console.WriteLine(Resources.WrongArguments);
+                NotifyUser(Resources.WrongArguments);
                 return;
             }
 
@@ -21,13 +21,13 @@ namespace CSharpToUmlConverter
 
             if (!File.Exists(pathSourceFile))
             {
-                Console.WriteLine(Resources.NotFoundSourceFile);
+                NotifyUser(string.Format(Resources.NotFoundSourceFile, pathSourceFile));
                 return;
             }
 
             if (!Directory.Exists(Path.GetDirectoryName(outputPath)))
             {
-                Console.WriteLine(Resources.OutputDirectoryDoesntExist);
+                NotifyUser(string.Format(Resources.OutputDirectoryDoesntExist, outputPath));
                 return;
             }
 
@@ -37,9 +37,14 @@ namespace CSharpToUmlConverter
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                NotifyUser(e.Message);
             }
+        }
 
+        private static void NotifyUser(string message)
+        {
+            Console.WriteLine(message);
+            Console.ReadLine();
         }
     }
 }
