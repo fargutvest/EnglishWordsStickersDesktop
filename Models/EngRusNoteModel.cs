@@ -13,6 +13,7 @@ namespace EnglishWordsPrintUtility.Models
 
         public DateTime DateTime { get; set; }
         public string English { get; set; }
+        public string Spell { get; set; }
         public string Russian { get; set; }
 
 
