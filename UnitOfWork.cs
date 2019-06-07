@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using EnglishWordsPrintUtility.Models;
 using EnglishWordsPrintUtility.Properties;
 
 namespace EnglishWordsPrintUtility
@@ -23,10 +24,10 @@ namespace EnglishWordsPrintUtility
             if (pathSourceFile.EndsWith(".gsheet"))
                 repository = WordsRepository.LoadFromGSheetFile(pathSourceFile);
 
-            DateTimeValue = repository.NotesEngRus.OrderBy(x => x.DateTime).First().DateTime;
+            earlierDate = repository.NotesEngRus.OrderBy(x => x.DateTime).First().DateTime;
         }
 
-        public DateTime DateTimeValue { get; set; }
+        private DateTime earlierDate;
 
         public void Start()
         {
@@ -35,21 +36,24 @@ namespace EnglishWordsPrintUtility
 
         private void CreateExcelFile()
         {
-            var dic = new Dictionary<string, string>();
+            var dic = new Dictionary<string, (string Spell, string Russian)>();
 
             repository.NotesEngRus.ForEach(note =>
             {
-                if (note.DateTime < DateTimeValue)
+                var key = note.English;
+
+                if (note.DateTime < earlierDate)
                 {
                     return;
                 }
                 if (dic.ContainsKey(note.English))
                 {
-                    dic[note.English] += $"/{note.Russian}";
+                    var value = dic[key];
+                    dic[key] = (value.Spell, value.Russian += $"/{note.Russian}");
                 }
                 else
                 {
-                    dic[note.English] = note.Russian;
+                    dic[key] = (note.Spell, note.Russian);
                 }
             });
 

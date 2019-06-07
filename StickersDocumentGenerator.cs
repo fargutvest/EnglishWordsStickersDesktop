@@ -10,12 +10,12 @@ namespace EnglishWordsPrintUtility
 {
     public static class StickersDocumentGenerator
     {
-        public static void Generate(Dictionary<string, string> dic, string templateFilePath, string path)
+        public static void Generate(Dictionary<string, (string Spell, string Russian)> dic, string templateFilePath, string path)
         {
             var template = File.ReadAllBytes(templateFilePath);
             var report = new FlexCelReport();
 
-            var stickers = dic.Select(x => new StickerModel(x.Key, x.Value)).ToList();
+            var stickers = dic.Select(x => new StickerModel(x.Key, x.Value.Spell, x.Value.Russian)).ToList();
             var rows = new List<StickersRowModel>();
 
             StickerModel predicate(int i, int column)

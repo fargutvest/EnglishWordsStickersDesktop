@@ -8,7 +8,7 @@ using Google.Apis.Auth.OAuth2;
 using Google.Apis.Services;
 using Google.Apis.Sheets.v4;
 using Google.Apis.Util.Store;
-using System.Net;
+using HtmlAgilityPack;
 
 namespace EnglishWordsPrintUtility
 {
@@ -84,13 +84,13 @@ namespace EnglishWordsPrintUtility
             {
                 foreach (var value in values)
                 {
-                    var res = TryGetSpell(value[0].ToString(), out var resultSpell);
-
-                    notes.Add(new EngRusNoteModel()
+                    var en = value[0].ToString();
+                    VisitWooordhunt(en, out var spell, out var russian);
+                    notes.Add(new EngRusNoteModel
                     {
-                        English = value[0].ToString(),
-                        Spell = resultSpell,
-                        Russian = value[2].ToString()
+                        English = en,
+                        Spell = spell,
+                        Russian = russian
                     });
                 }
             }
@@ -104,24 +104,22 @@ namespace EnglishWordsPrintUtility
             return model;
         }
 
-       private static bool TryGetSpell(string word, out string spell)
+        private static void VisitWooordhunt(string en, out string spell, out string russian)
         {
             spell = "";
-            var req = WebRequest.Create($"http://wooordhunt.ru/word/{word}");
-            var resp = (HttpWebResponse)req.GetResponse();
-
-            using (StreamReader stream = new StreamReader(
-                resp.GetResponseStream()))
+            russian = "";
+            try
             {
-                var htmlResponce = stream.ReadToEnd();
-                var stage1 = Regex.Match(htmlResponce, "uk_tr_sound.*class=\"transcription\"> \\|?.*\\|").Value;
-                var stage2 = Regex.Match(stage1, "(\\|.*\\|)").Value;
-                spell = stage2.Trim('|');
+                var url = $"http://wooordhunt.ru/word/{en}";
+                var web = new HtmlWeb();
+                var doc = web.Load(url);
+                spell = doc.DocumentNode.SelectSingleNode("//*[@id=\"uk_tr_sound\"]/span[1]")?.InnerText;
+                russian = doc.DocumentNode.SelectSingleNode("//*[@id=\"wd_content\"]/span/text()")?.InnerText;
             }
-
-            return spell != "";
+            catch (Exception)
+            {
+                // ignored
+            }
         }
-
-       
     }
 }
