@@ -74,18 +74,28 @@ namespace EnglishWordsPrintUtility
             });
 
 
-            var request = service.Spreadsheets.Values.Get(spreadsheetId, "A:Z");
+            var request = service.Spreadsheets.Values.Get(spreadsheetId, "A:A");
 
             var response = request.Execute();
             var values = response.Values;
-
+            int counter = 0;
             var notes = new List<EngRusNoteModel>();
             if (values != null)
             {
                 foreach (var value in values)
                 {
+                    counter++;
+                    var percent = ((double)counter / values.Count) * 100;
+
+                    Console.Write($"\r{(int)percent}%");
                     var en = value[0].ToString();
                     VisitWooordhunt(en, out var spell, out var russian);
+
+                    if (russian == "")
+                    {
+                        VisitContextreverso(en, out russian);
+                    }
+
                     notes.Add(new EngRusNoteModel
                     {
                         English = en,
@@ -113,8 +123,26 @@ namespace EnglishWordsPrintUtility
                 var url = $"http://wooordhunt.ru/word/{en}";
                 var web = new HtmlWeb();
                 var doc = web.Load(url);
-                spell = doc.DocumentNode.SelectSingleNode("//*[@id=\"uk_tr_sound\"]/span[1]")?.InnerText;
-                russian = doc.DocumentNode.SelectSingleNode("//*[@id=\"wd_content\"]/span/text()")?.InnerText;
+                spell = doc.DocumentNode.SelectSingleNode("//*[@id=\"uk_tr_sound\"]/span[1]")?.InnerText ?? "";
+                russian = doc.DocumentNode.SelectSingleNode("//*[@id=\"wd_content\"]/span/text()")?.InnerText ?? "";
+            }
+            catch (Exception)
+            {
+                // ignored
+            }
+        }
+
+        private static void VisitContextreverso(string en, out string russian)
+        {
+            russian = "";
+            try
+            {
+                var url = $"https://context.reverso.net/translation/english-russian/{en}";
+                var web = new HtmlWeb();
+                var doc = web.Load(url);
+                var text = doc.DocumentNode.SelectSingleNode("//*[@id=\"translations-content\"]/a[1]")?.InnerText ??
+                           doc.DocumentNode.SelectSingleNode("//*[@id=\"translations-content\"]/div[1]")?.InnerText;
+                russian = text?.Replace(Regex.Match(text, "^( |\n)*").Value, "") ?? "";
             }
             catch (Exception)
             {
