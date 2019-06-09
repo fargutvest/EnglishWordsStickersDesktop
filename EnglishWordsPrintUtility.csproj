@@ -93,6 +93,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />
+    <Compile Include="JsonHelper.cs" />
     <Compile Include="StickersDocumentGenerator.cs" />
     <Compile Include="Models\StickersPageModel.cs" />
     <Compile Include="Models\StickersRowModel.cs" />
@@ -135,6 +136,9 @@
     <EmbeddedResource Include="Properties\Resources.resx" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="launch.bat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <Content Include="Lib\FlexCel.dll" />
     <Resource Include="Lib\FlexCel.XML" />
   </ItemGroup>

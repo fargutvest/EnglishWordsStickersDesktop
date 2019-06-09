@@ -1,0 +1,1 @@
+EnglishWordsPrintUtility.exe "F:\Google Drive\#english\Words to study.gsheet"  "C:\Users\Gena & Anna\Desktop\EnglishWordsToPrint.xls"

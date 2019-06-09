@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using EnglishWordsPrintUtility.Models;
 using EnglishWordsPrintUtility.Properties;
@@ -11,7 +12,6 @@ namespace EnglishWordsPrintUtility
         private string outputPath;
 
         private const string exelTemplateFilePath = "Templates/template.xlsx";
-
         private WordsRepository repository;
 
 
@@ -24,7 +24,7 @@ namespace EnglishWordsPrintUtility
             if (pathSourceFile.EndsWith(".gsheet"))
                 repository = WordsRepository.LoadFromGSheetFile(pathSourceFile);
 
-            earlierDate = repository.NotesEngRus.OrderBy(x => x.DateTime).First().DateTime;
+            earlierDate = repository.NotesEngRus.Count > 0 ? repository.NotesEngRus.OrderBy(x => x.DateTime).First().DateTime : DateTime.Now;
         }
 
         private DateTime earlierDate;

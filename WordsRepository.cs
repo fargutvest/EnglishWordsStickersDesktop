@@ -2,6 +2,7 @@
 using EnglishWordsPrintUtility.Models;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
 using Google.Apis.Auth.OAuth2;
@@ -15,6 +16,7 @@ namespace EnglishWordsPrintUtility
     public class WordsRepository
     {
         public List<EngRusNoteModel> NotesEngRus { get; private set; }
+        private const string cacheFilePath = "cache.json";
 
 
         public static WordsRepository LoadFromCsvFile(string filePath)
@@ -42,6 +44,40 @@ namespace EnglishWordsPrintUtility
 
             return model;
         }
+
+        private static IList<IList<object>> ExcludeCachedNotes(IList<IList<object>> notes)
+        {
+            try
+            {
+                if (File.Exists(cacheFilePath))
+                {
+                    var json = File.ReadAllText(cacheFilePath);
+                    var fromCache = (List<EngRusNoteModel>)json.DeserialiseToObject(typeof(List<EngRusNoteModel>));
+                    return notes.Where(n => fromCache.All(c => c.English != n[0].ToString())).ToList();
+                }
+                return notes;
+            }
+            catch (Exception)
+            {
+                return notes;
+            }
+        }
+
+        private static void UpdateCache(List<EngRusNoteModel> notes)
+        {
+            var toUpdate = new List<EngRusNoteModel>();
+            if (File.Exists(cacheFilePath))
+            {
+                var jsonRead = File.ReadAllText(cacheFilePath);
+                toUpdate = (List<EngRusNoteModel>)jsonRead.DeserialiseToObject(typeof(List<EngRusNoteModel>));
+                File.Delete(cacheFilePath);
+            }
+
+            toUpdate.AddRange(notes);
+            var jsonToSave = toUpdate.SerialiseToJson();
+            File.WriteAllText(cacheFilePath, jsonToSave);
+        }
+
 
         public static WordsRepository LoadFromGSheetFile(string filePath)
         {
@@ -78,8 +114,12 @@ namespace EnglishWordsPrintUtility
 
             var response = request.Execute();
             var values = response.Values;
-            int counter = 0;
+
+            values = ExcludeCachedNotes(values);
+
+
             var notes = new List<EngRusNoteModel>();
+            int counter = 0;
             if (values != null)
             {
                 foreach (var value in values)
@@ -105,6 +145,7 @@ namespace EnglishWordsPrintUtility
                 }
             }
 
+            UpdateCache(notes);
 
             var model = new WordsRepository
             {
