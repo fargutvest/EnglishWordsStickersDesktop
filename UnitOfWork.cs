@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 using EnglishWordsPrintUtility.Models;
-using EnglishWordsPrintUtility.Properties;
 using HtmlAgilityPack;
 
 namespace EnglishWordsPrintUtility
@@ -88,7 +87,7 @@ namespace EnglishWordsPrintUtility
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
-                Console.WriteLine(Resources.WorkWithTrial);
+                Console.WriteLine("To work with trial flexcel need to open source code in VS  and run program under debug.");
             }
         }
 

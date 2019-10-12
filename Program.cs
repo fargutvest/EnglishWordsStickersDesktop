@@ -1,9 +1,7 @@
 ﻿using System;
 using System.IO;
-using EnglishWordsPrintUtility;
-using EnglishWordsPrintUtility.Properties;
 
-namespace CSharpToUmlConverter
+namespace EnglishWordsPrintUtility
 {
     class Program
     {
@@ -11,7 +9,7 @@ namespace CSharpToUmlConverter
         {
             if (args == null || args.Length < 2)
             {
-                NotifyUser(Resources.WrongArguments);
+                NotifyUser("Wrong arguments");
                 return;
             }
 
@@ -21,13 +19,13 @@ namespace CSharpToUmlConverter
 
             if (!File.Exists(pathSourceFile))
             {
-                NotifyUser(string.Format(Resources.NotFoundSourceFile, pathSourceFile));
+                NotifyUser($"Not found source file with specified path {pathSourceFile}.");
                 return;
             }
 
             if (!Directory.Exists(Path.GetDirectoryName(outputPath)))
             {
-                NotifyUser(string.Format(Resources.OutputDirectoryDoesntExist, outputPath));
+                NotifyUser($"Specified output directory {outputPath} doesn`t exist.");
                 return;
             }
 
