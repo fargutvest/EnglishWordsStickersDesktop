@@ -98,7 +98,7 @@
     <Compile Include="Models\StickersPageModel.cs" />
     <Compile Include="Models\StickersRowModel.cs" />
     <Compile Include="Models\StickerModel.cs" />
-    <Compile Include="WordsRepository.cs" />
+    <Compile Include="GSheetsRepository.cs" />
     <Compile Include="Models\EngRusNoteModel.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWork.cs" />

@@ -33,7 +33,7 @@ namespace CSharpToUmlConverter
 
             try
             {
-                new UnitOfWork(pathSourceFile, outputPath).Start();
+                new UnitOfWork(pathSourceFile, outputPath).Run();
             }
             catch (Exception e)
             {

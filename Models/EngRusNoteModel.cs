@@ -7,14 +7,14 @@ namespace EnglishWordsPrintUtility.Models
 {
     public class EngRusNoteModel
     {
-        private static readonly char splitter = ',';
-        private static readonly string dateTimeFormat = "dd/MM/yyyy hh:mm:ss tt";
-        private const string engRusPattern = @"^[a-z]+\s[а-я]+";
+        private static readonly char _splitter = ',';
+        private static readonly string _dateTimeFormat = "dd/MM/yyyy hh:mm:ss tt";
+        private const string _engRusPattern = @"^[a-z]+\s[а-я]+";
 
         public DateTime DateTime { get; set; }
-        public string English { get; set; }
+        public string Eng { get; set; }
         public string Spell { get; set; }
-        public string Russian { get; set; }
+        public string Rus { get; set; }
 
 
         public static bool TryParse(string text, out EngRusNoteModel model)
@@ -22,16 +22,16 @@ namespace EnglishWordsPrintUtility.Models
             model = null;
             try
             {
-                var splitted = text.Split(splitter);
+                var splitted = text.Split(_splitter);
 
                 if (splitted.Length > 4)
                 {
-                    var dateTime = DateTime.ParseExact($"{splitted[0]} {splitted[1]}", dateTimeFormat, CultureInfo.CurrentCulture);
+                    var dateTime = DateTime.ParseExact($"{splitted[0]} {splitted[1]}", _dateTimeFormat, CultureInfo.CurrentCulture);
                     var sender = splitted[2];
                     var phone = splitted[3];
                     var message = splitted[4];
 
-                    var regex = new Regex(engRusPattern);
+                    var regex = new Regex(_engRusPattern);
 
                     if (regex.Matches(message).Count != 1)
                     {
@@ -43,8 +43,8 @@ namespace EnglishWordsPrintUtility.Models
                     var rus = message.Substring(firstSpaceIndex + 1);
                     model = new EngRusNoteModel
                     {
-                        English = eng,
-                        Russian = rus,
+                        Eng = eng,
+                        Rus = rus,
                         DateTime = dateTime
                     };
 
