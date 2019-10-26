@@ -11,7 +11,6 @@
     <PackageReference Include="Google.Apis.Core" Version="1.41.1" />
     <PackageReference Include="Google.Apis.Drive.v2" Version="1.19.0.672" />
     <PackageReference Include="Google.Apis.Sheets.v4" Version="1.41.1.1734" />
-    <PackageReference Include="HtmlAgilityPack" Version="1.4.9.5" />
     <PackageReference Include="System.Reactive.PlatformServices" Version="4.2.0" />
   </ItemGroup>
 

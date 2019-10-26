@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
+using System.Xml;
 using EnglishWordsPrintUtility.Models;
-using HtmlAgilityPack;
 
 namespace EnglishWordsPrintUtility
 {
@@ -98,10 +98,10 @@ namespace EnglishWordsPrintUtility
             try
             {
                 var url = $"http://wooordhunt.ru/word/{en}";
-                var web = new HtmlWeb();
-                var doc = web.Load(url);
-                spell = doc.DocumentNode.SelectSingleNode("//*[@id=\"uk_tr_sound\"]/span[1]")?.InnerText ?? "";
-                rus = doc.DocumentNode.SelectSingleNode("//*[@id=\"wd_content\"]/span/text()")?.InnerText ?? "";
+                var web = new XmlDocument();
+                web.Load(url);
+                spell = web.DocumentElement.SelectSingleNode("//*[@id=\"uk_tr_sound\"]/span[1]")?.InnerText ?? "";
+                rus = web.DocumentElement.SelectSingleNode("//*[@id=\"wd_content\"]/span/text()")?.InnerText ?? "";
             }
             catch (Exception)
             {
@@ -115,10 +115,10 @@ namespace EnglishWordsPrintUtility
             try
             {
                 var url = $"https://context.reverso.net/translation/english-russian/{en}";
-                var web = new HtmlWeb();
-                var doc = web.Load(url);
-                var text = doc.DocumentNode.SelectSingleNode("//*[@id=\"translations-content\"]/a[1]")?.InnerText ??
-                           doc.DocumentNode.SelectSingleNode("//*[@id=\"translations-content\"]/div[1]")?.InnerText;
+                var web = new XmlDocument();
+                web.Load(url);
+                var text = web.DocumentElement.SelectSingleNode("//*[@id=\"translations-content\"]/a[1]")?.InnerText ??
+                           web.DocumentElement.SelectSingleNode("//*[@id=\"translations-content\"]/div[1]")?.InnerText;
                 rus = text?.Replace(Regex.Match(text, "^( |\n)*").Value, "") ?? "";
             }
             catch (Exception)
