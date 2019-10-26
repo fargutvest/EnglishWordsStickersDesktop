@@ -5,7 +5,9 @@
 
 # Usage: 
 launch.bat
+
 or
+
 dotnet EnglishWordsStickers.dll [path to Google Sheets file] [path to result excel file]
 
 
