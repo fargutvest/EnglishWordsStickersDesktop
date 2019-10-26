@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 using System.Xml;
-using EnglishWordsPrintUtility.Models;
+using EnglishWordsStickers.Models;
 
-namespace EnglishWordsPrintUtility
+namespace EnglishWordsStickers
 {
     public class UnitOfWork
     {  

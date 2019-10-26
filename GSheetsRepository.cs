@@ -1,5 +1,5 @@
 ﻿using System;
-using EnglishWordsPrintUtility.Models;
+using EnglishWordsStickers.Models;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -10,7 +10,7 @@ using Google.Apis.Services;
 using Google.Apis.Sheets.v4;
 using Google.Apis.Util.Store;
 
-namespace EnglishWordsPrintUtility
+namespace EnglishWordsStickers
 {
     public class GSheetsRepository
     {

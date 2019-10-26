@@ -1,1 +1,1 @@
-dotnet EnglishWordsPrintUtility.dll "F:\Google Drive\#english\Words to study.gsheet" "EnglishWordsToPrint.xls"
+dotnet EnglishWordsStickers.dll "F:\Google Drive\#english\Words to study.gsheet" "F:\Google Drive\#english\EnglishWordsStickers.xls"

@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using EnglishWordsPrintUtility.Models;
+using EnglishWordsStickers.Models;
 using FlexCel.Report;
 using FlexCel.XlsAdapter;
 
 
-namespace EnglishWordsPrintUtility
+namespace EnglishWordsStickers
 {
     public static class StickersDocumentGenerator
     {

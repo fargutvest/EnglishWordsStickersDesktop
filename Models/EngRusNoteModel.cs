@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Text.RegularExpressions;
 
 
-namespace EnglishWordsPrintUtility.Models
+namespace EnglishWordsStickers.Models
 {
     public class EngRusNoteModel
     {

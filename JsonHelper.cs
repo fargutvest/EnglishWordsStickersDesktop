@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace EnglishWordsPrintUtility
+namespace EnglishWordsStickers
 {
     public static class JsonExtensions
     {

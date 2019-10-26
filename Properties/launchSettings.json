@@ -1,7 +1,8 @@
 {
   "profiles": {
-    "EnglishWordsPrintUtility": {
-      "commandName": "Project"
+    "EnglishWordsStickers": {
+      "commandName": "Project",
+      "commandLineArgs": "\"F:\\Google Drive\\#english\\Words to study.gsheet\" \"C:\\Users\\Gena & Anna\\Documents\\stickers.xls\""
     }
   }
 }

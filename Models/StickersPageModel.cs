@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace EnglishWordsPrintUtility.Models
+namespace EnglishWordsStickers.Models
 {
     internal sealed class StickersPageModel
     {
