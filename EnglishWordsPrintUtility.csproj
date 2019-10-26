@@ -5,6 +5,10 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
+    <PropertyGroup>
+        <RuntimeIdentifiers>win10-x64;ubuntu.16.10-x64</RuntimeIdentifiers>
+    </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="Google.Apis" Version="1.41.1" />
     <PackageReference Include="Google.Apis.Auth" Version="1.41.1" />
