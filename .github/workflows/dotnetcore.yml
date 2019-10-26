@@ -23,4 +23,4 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
         name: dist
-        path: dist
+        path: /bin/Release/netcoreapp2.1
