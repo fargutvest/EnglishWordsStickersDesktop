@@ -86,7 +86,7 @@ namespace EnglishWordsStickers
             try
             {
                 StickersDocumentGenerator.Generate(dic, _exelTemplateFilePath, _outputPath);
-                Process.Start(@"cmd.exe ", $"/c {_outputPath}");
+                Process.Start("cmd.exe", $" /C \"{_outputPath}\"");
             }
             catch (Exception e)
             {
