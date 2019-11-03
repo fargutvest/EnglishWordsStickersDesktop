@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Text;
 
 namespace EnglishWordsStickers
 {
@@ -7,6 +8,8 @@ namespace EnglishWordsStickers
     {
         static void Main(string[] args)
         {
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+            
             if (args == null || args.Length < 2)
             {
                 NotifyUser("Wrong arguments");
@@ -42,7 +45,7 @@ namespace EnglishWordsStickers
         private static void NotifyUser(string message)
         {
             Console.WriteLine(message);
-            Console.ReadLine();
+            Console.ReadKey();
         }
     }
 }

@@ -7,7 +7,7 @@
         public StickerModel Column3 { get; }
         public StickerModel Column4 { get; }
 
-        public StickersRowModel( StickerModel column1, StickerModel column2, StickerModel column3, StickerModel column4)
+        public StickersRowModel(StickerModel column1, StickerModel column2, StickerModel column3, StickerModel column4)
         {
             Column1 = column1;
             Column2 = column2;

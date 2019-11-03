@@ -12,29 +12,37 @@ namespace EnglishWordsStickers
     {
         public static void Generate(Dictionary<string, (string Spell, string Russian)> dic, string templateFilePath, string path)
         {
-            var template = File.ReadAllBytes(templateFilePath);
             var report = new FlexCelReport();
 
-            var stickers = dic.Select(x => new StickerModel(x.Key, x.Value.Spell, x.Value.Russian)).ToList();
+            var stickers = dic.OrderBy(_=>_.Key).Select(x => new StickerModel(x.Key, x.Value.Spell, x.Value.Russian)).ToList();
             var rows = new List<StickersRowModel>();
-
-            StickerModel predicate(int i, int column)
-            {
-                return stickers.Count - 1 > i + column ? stickers[i + column] : null;
-            }
-
+            
             for (var i = 0; i < stickers.Count; i += 4)
             {
-                rows.Add(new StickersRowModel(stickers[i], predicate(i, 1), predicate(i, 2), predicate(i, 3)));
+                rows.Add(GetRowOfStickers(i, stickers));
             }
-
-
+            
             report.AddTable("Pages", new List<StickersPageModel>
             {
                 new StickersPageModel(rows)
             });
 
-            using (var templateStream = new MemoryStream(template))
+            WriteInFile(report, path, templateFilePath);
+        }
+
+        private static StickersRowModel GetRowOfStickers(int i, List<StickerModel> stickers)
+        {
+            StickerModel Predicate(int column)
+            {
+                return stickers.Count - 1 > i + column ? stickers[i + column] : null;
+            }
+
+            return new StickersRowModel(stickers[i], Predicate(1), Predicate(2), Predicate(3));
+        }
+
+        private static void WriteInFile(FlexCelReport report, string path, string templatePath)
+        {
+            using (var templateStream = new MemoryStream(File.ReadAllBytes(templatePath)))
             {
                 using (var outStream = new MemoryStream())
                 {
