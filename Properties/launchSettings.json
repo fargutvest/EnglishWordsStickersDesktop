@@ -2,7 +2,7 @@
   "profiles": {
     "EnglishWordsStickers": {
       "commandName": "Project",
-      "commandLineArgs": "\"F:\\Google Drive\\#english\\Words to study.gsheet\" \"C:\\Users\\Gena & Anna\\Documents\\stickers.xls\""
+      "commandLineArgs": "\"F:\\Google Drive\\#english\\Words to study.gsheet\" \"F:\\Google Drive\\#english\\stickers.xls\""
     }
   }
 }
